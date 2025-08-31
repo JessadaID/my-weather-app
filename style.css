@@ -1,72 +1,177 @@
-body {
-    background: #051923;
-    color: #E0E1DD;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+/* Reset and Base Styles */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #31D492,#1F7A55); /* Modern blue gradient */
+    color: #ffffff; /* Default text color to white for contrast */
+    overflow-x: hidden; /* Prevent horizontal scroll on the body */
 }
 
 .app-container {
-    background: #003554;
+    width: 100%;
+    min-height: 100vh;
     padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
-    color: #00A6FB;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 #search-form {
     display: flex;
     gap: 0.5rem;
     margin: 1.5rem 0;
+    width: 100%;
+    max-width: 600px; /* Give the search bar a max width */
 }
 
 #city-input {
     flex-grow: 1;
-    padding: 0.75rem;
-    border: 1px solid #006494;
-    border-radius: 0.5rem;
-    background: #051923;
-    color: #E0E1DD;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px; /* Pill shape */
     font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    backdrop-filter: blur(5px);
+}
+
+#city-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#city-input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.9);
 }
 
 #search-form button {
-    padding: 0.75rem 1rem;
-    background-color: #00A6FB;
-    color: #051923;
+    padding: 1rem 1.5rem;
+    background-color: #ffffff;
+    color: #2980B9;
     border: none;
-    border-radius: 0.5rem;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
 }
 
 #search-form button:hover {
-    background-color: #0582CA;
+    background-color: #f0f0f0;
+    transform: scale(1.05);
 }
 
 .weather-info {
-    margin-top: 1.5rem;
-    min-height: 150px;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 1200px; /* Max width for the content area */
+    text-align: center;
 }
 
-.weather-info .temp {
-    font-size: 3rem;
-    font-weight: bold;
+.weather-info h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Scrollbar for forecast container */
+.forecast-list-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.forecast-list-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.forecast-list-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.forecast-list-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.forecast-list-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 1.5rem; /* Increased gap */
+    padding: 1.5rem;
+    scroll-snap-type: x mandatory;
+    /* Add some padding to the sides so cards don't touch the edge on scroll */
+    margin: 0 -1.5rem; 
+}
+
+.forecast-item {
+    flex: 0 0 160px; /* Slightly wider cards */
+    padding: 1.5rem 1rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    scroll-snap-align: center; /* Center the snapped item */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+.forecast-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+}
+
+.forecast-item h3 {
+    font-size: 0.9rem; /* Slightly smaller for better fit */
+    margin: 0 0 0.5rem 0;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.forecast-item img {
+    width: 70px; /* Control image size */
+    height: 70px;
+}
+
+.forecast-item .temp {
+    font-size: 2rem;
+    font-weight: 600;
     margin: 0.5rem 0;
+    color: #ffffff;
+}
+
+.forecast-item p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.error, .loading {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: inline-block;
 }
 
 .error {
-    color: #ff4d4d;
+    background: rgba(255, 0, 0, 0.2);
     font-weight: bold;
 }
